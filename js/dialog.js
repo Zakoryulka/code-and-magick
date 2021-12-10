@@ -7,7 +7,7 @@
   const setupOpen = document.querySelector('.setup-open');
   const setupClose = setup.querySelector('.setup-close');
   const userNameInput = setup.querySelector('.setup-user-name');
-
+  const form = setup.querySelector('.setup-wizard-form');
 
   //метод закрытия попапа при нажимании esc:
   const onPopupEscPress = function(evt) {
@@ -44,5 +44,13 @@
 
   setupClose.addEventListener('keydown', function(evt) {
     window.util.isEnterEvent(evt, closePopup);
+  });
+
+  //отправляем данные формы по нажатию на кнопку:
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function (response) {
+      setup.classList.add('hidden');
+    });
+    evt.preventDefault();
   });
 })();
